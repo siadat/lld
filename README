@@ -1,0 +1,6 @@
+Compares each line with the previous line and marks the changed characters.
+
+Example usage:
+
+    cat FILE |lld
+    lld FILE1 FILE2 ...
