@@ -1,5 +1,5 @@
-Line by line diff
-=================
+lld -- line by line diff
+========================
 
 Installation
 ------------
@@ -7,8 +7,8 @@ Installation
 ln -s lld.pl ~/bin/lld
 ```
 
-Use
----
+Usage
+-----
 
 ```bash
 $ cat FILE | lld
