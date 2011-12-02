@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use Term::ANSIColor;
 use Algorithm::Diff;
+use utf8;
 
 my $DEBUG_MODE = 0;
 my @prev_words = ();
@@ -14,6 +15,7 @@ if ($DEBUG_MODE) {
 }
 
 while(<>) {
+  utf8::decode($_);
   @new_words = @words = split(/(\W)/, $_);
   my @hunks = Algorithm::Diff::diff(\@prev_words, \@words);
 
@@ -29,7 +31,8 @@ while(<>) {
       my $str = $x[2];
       if ($operand eq "+") {
         if($DEBUG_MODE) {
-          print "Add($index, ${str}) ";
+          utf8::encode($str);
+          print "Add($index, $str) ";
         } else {
           ${new_words[$index]} = colored($str, 'cyan');
         }
@@ -42,6 +45,7 @@ while(<>) {
     print "\n== NEXT LINE ==\n";
   } else {
     while((my $key, my $w) = each(@new_words)) {
+      utf8::encode($w);
       print $w;
     }
   }
