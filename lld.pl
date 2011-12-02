@@ -18,7 +18,7 @@ while(<>) {
   my @s_diff = Algorithm::Diff::diff(\@prev_words, \@words);
 
   if($DEBUG_MODE) {
-    print "\n== " . Dumper(@s_diff);
+    print "\n " . Dumper(@s_diff);
   }
 
   foreach my $hunk (@s_diff) {
@@ -29,9 +29,9 @@ while(<>) {
       my $str = $x[2];
       if ($operand eq "+") {
         if($DEBUG_MODE) {
-          print "Add($index, ${words[$index]}) ";
+          print "Add($index, ${str}) ";
         } else {
-          ${new_words[$index]} = colored(${words[$index]}, 'cyan');
+          ${new_words[$index]} = colored($str, 'cyan');
         }
 
       }
