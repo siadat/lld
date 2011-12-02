@@ -15,13 +15,13 @@ if ($DEBUG_MODE) {
 
 while(<>) {
   @new_words = @words = split(/(\W)/, $_);
-  my @s_diff = Algorithm::Diff::diff(\@prev_words, \@words);
+  my @hunks = Algorithm::Diff::diff(\@prev_words, \@words);
 
   if($DEBUG_MODE) {
-    print "\n " . Dumper(@s_diff);
+    print "\n " . Dumper(@hunks);
   }
 
-  foreach my $hunk (@s_diff) {
+  foreach my $hunk (@hunks) {
     foreach my $diff (@{$hunk}) {
       my @x = @{$diff};
       my $operand = $x[0];
