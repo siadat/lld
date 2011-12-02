@@ -3,13 +3,17 @@ Line by line diff
 
 Installation
 ------------
+```bash
 ln -s lld.pl ~/bin/lld
+```
 
 Use
 ---
 
 ```bash
 $ cat FILE | lld
+$ echo "line 1\nline 2" | lld
+$ find | lld
 $ lld < FILE
 $ lld FILE1 FILE2 ...
 $ lld
