@@ -1,6 +1,19 @@
 Line by line diff
+=================
 
-Example usage:
+Installation
+------------
+ln -s lld.pl ~/bin/lld
 
-    cat FILE | lld
-    lld FILE1 FILE2 ...
+Use
+---
+
+```bash
+$ cat FILE | lld
+$ lld < FILE
+$ lld FILE1 FILE2 ...
+$ lld
+the quick brown fox jumps over the lazy dog
+the quick brown fox does not jump over the lazy dog
+^D
+```
