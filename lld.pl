@@ -11,6 +11,7 @@ my @words = [];
 while(<>) {
   $_ = Term::ANSIColor::colorstrip($_);
   utf8::decode($_);
+
   @words = split(/(\W)/, $_);
   my @hunks = Algorithm::Diff::diff(\@prev_words, \@words);
   @prev_words = @words;
@@ -18,9 +19,7 @@ while(<>) {
   foreach my $hunk (@hunks) {
     foreach my $diff (@$hunk) {
       my ($operand, $index, $str) = @$diff;
-      if ($operand eq "+") {
-        $words[$index] = colored($str, 'cyan');
-      }
+      $words[$index] = colored($str, 'cyan') if ($operand eq "+");
     }
   }
 
