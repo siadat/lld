@@ -21,3 +21,17 @@ the quick brown fox jumps over the lazy dog
 the quick brown fox does not jump over the lazy dog
 ^D
 ```
+
+Output
+------
+
+<pre>
+$ find -maxdepth 2 | lld
+<b>.</b>
+.<b>/curses-timer</b>
+./curses-timer<b>/.git</b>
+./curses-timer/.<b>gitignore</b>
+./curses-timer/<b>README</b>.<b>md</b>
+./curses-timer/<b>timer</b>.<b>cpp</b>
+./curses-timer/timer.<b>h</b>
+</pre>
