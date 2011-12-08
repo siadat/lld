@@ -9,11 +9,11 @@ my @prev_words = ();
 my @words = [];
 $/ = "\n";
 
-while(<>) {
-  $_ = Term::ANSIColor::colorstrip($_);
-  utf8::decode($_);
+while(my $record = <>) {
+  $record = Term::ANSIColor::colorstrip($record);
+  utf8::decode($record);
 
-  @words = split(/([\W_])/, $_);
+  @words = split(/([\W_])/, $record);
   my @hunks = Algorithm::Diff::diff(\@prev_words, \@words);
   @prev_words = @words;
 
@@ -24,7 +24,7 @@ while(<>) {
     }
   }
 
-  my $newline = join('', @words);
-  utf8::encode($newline);
-  print $newline;
+  $record = join('', @words);
+  utf8::encode($record);
+  print $record;
 }
