@@ -7,12 +7,13 @@ use Algorithm::Diff;
 
 my @prev_words = ();
 my @words = [];
+$/ = "\n";
 
 while(<>) {
   $_ = Term::ANSIColor::colorstrip($_);
   utf8::decode($_);
 
-  @words = split(/(\W)/, $_);
+  @words = split(/([\W_])/, $_);
   my @hunks = Algorithm::Diff::diff(\@prev_words, \@words);
   @prev_words = @words;
 
