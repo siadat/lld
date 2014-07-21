@@ -5,8 +5,8 @@ use utf8;
 use Term::ANSIColor;
 use Algorithm::Diff;
 
-my @prev_words = ();
-my @words = [];
+my @prev_words;
+my @words;
 $/ = "\n";
 
 while(my $record = <>) {

@@ -1,12 +1,11 @@
 package App::Lld;
 
-use 5.006;
 use strict;
 use warnings;
 
 =head1 NAME
 
-App::Lld - The great new App::Lld!
+App::Lld - Sequential Diff.
 
 =head1 VERSION
 
@@ -19,19 +18,7 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
-    use App::Lld;
-
-    my $foo = App::Lld->new();
-    ...
-
-=head1 EXPORT
-
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+Highlight the difference between a record (e.g. a line) with the previous one.
 
 =head1 SUBROUTINES/METHODS
 
@@ -39,61 +26,40 @@ if you don't export anything, such as for a purely object-oriented module.
 
 =cut
 
-sub function1 {
+sub prepare_record {
+  $1 = Term::ANSIColor::colorstrip($1);
+  utf8::decode($1);
+  return $1;
 }
 
-=head2 function2
+=head2 function1
 
 =cut
+sub split_record {
+  return split(/([\W_])/, $1);
+}
 
-sub function2 {
+=head2 function1
+
+=cut
+sub highlight_new {
+  my @hunks = Algorithm::Diff::diff(\@{$1}, \@{$2});
+  foreach my $hunk (@hunks) {
+    foreach my $diff (@$hunk) {
+      my ($operand, $index, $str) = @$diff;
+      $2[$index] = colored($str, 'cyan') if ($operand eq "+");
+    }
+  }
+  return $2;
 }
 
 =head1 AUTHOR
 
-Sina Siadat, C<< <siadat at gmail.com> >>
+Sina Siadat, C<< <siadat at gmail dot com> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-app-lld at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=App-Lld>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc App::Lld
-
-
-You can also look for information at:
-
-=over 4
-
-=item * RT: CPAN's request tracker (report bugs here)
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=App-Lld>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/App-Lld>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/App-Lld>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/App-Lld/>
-
-=back
-
-
-=head1 ACKNOWLEDGEMENTS
-
+Please report any bugs or feature requests to the issue list at Github: L<http://github.com/sinas/lld/issues>
 
 =head1 LICENSE AND COPYRIGHT
 
